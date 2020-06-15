@@ -48,7 +48,7 @@ public class H2Backend implements Backend {
     }
 
     @Override
-    public List<WaitingListEntry> getWorkerPositions(Worker worker) {
+    public List<WaitingListEntry> getWorkerPositions(Worker worker, Integer capacity) {
 
         String workerId = worker.getId();
 
@@ -56,6 +56,22 @@ public class H2Backend implements Backend {
 
         List<WaitingListEntry> result = jdbc.query(sql, new WaitingListEntryRowMapper());
 
+
+        EntryDate todaysDate = new EntryDate(LocalDate.now());
+
+        for(WaitingListEntry position : result)
+        {
+            Integer listPosition = position.getListPosition() - capacity;
+
+            if(position.getDateString() == todaysDate.getDateString()) {
+               listPosition += getNumberOfWorkersInOffice();
+            }
+
+            if(listPosition<0) listPosition = 0;
+
+            position.setListPosition(listPosition);
+
+        }
 
         return result;
     }
@@ -166,7 +182,11 @@ public class H2Backend implements Backend {
         if (currentPosition != -1) {
             Integer freeSpacesInOffice = capacity - getNumberOfWorkersInOffice();
             if (currentPosition <= freeSpacesInOffice) {
-                sql = "DELETE FROM waitinglist WHERE workerId = " + (char) 34 + workerId + (char) 34 + " AND entryDate = " + todaysDateString + ";";
+                sql = "DELETE FROM waitinglist WHERE workerId = " + (char) 34 + workerId + (char) 34 + " AND entryDate = " + (char) 34 + todaysDateString + (char) 34 + ";";
+
+                jdbc.execute(sql);
+
+                sql = "UPDATE waitinglist SET listPosition = listPosition + 1 WHERE entryDate = " + (char) 34 + todaysDateString + (char) 34 + ";";
 
                 jdbc.execute(sql);
 

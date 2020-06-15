@@ -6,7 +6,7 @@ public class WaitingListEntry {
 
     private final Worker worker;
     private final EntryDate date;
-    private final Integer listPosition;
+    private Integer listPosition;
 
     public WaitingListEntry(String workerId, LocalDate date, Integer listPosition) {
         this.worker = new Worker(workerId);
@@ -21,6 +21,8 @@ public class WaitingListEntry {
     public String getDateString() {
         return this.date.getDateString();
     }
+
+    public void setListPosition(Integer position) { this.listPosition = position; }
 
     public Integer getListPosition() {
         return this.listPosition;

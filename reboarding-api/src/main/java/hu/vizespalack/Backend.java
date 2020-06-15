@@ -9,7 +9,7 @@ public interface Backend {
 
     Integer getWorkerPosition(@NotNull EntryDate date, @NotNull Worker worker);
 
-    List<WaitingListEntry> getWorkerPositions(@NotNull Worker worker);
+    List<WaitingListEntry> getWorkerPositions(@NotNull Worker worker, Integer capacity);
 
     List<WaitingListEntry> getWaitingList(@NotNull EntryDate date);
 

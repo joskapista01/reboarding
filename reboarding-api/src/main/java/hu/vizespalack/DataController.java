@@ -39,7 +39,12 @@ public class DataController {
     public Integer registerWorkerToDay(Worker worker, EntryDate date) {
         notifyBackend();
 
-        return backend.registerWorkerToDay(worker, date);
+        Integer position = registerWorkerToDay(worker, date);
+
+        if(position<=currentCapacity) return 0;
+
+        return position - currentCapacity;
+
 
         //if only one registration can be on a singe day
         /*
@@ -69,7 +74,9 @@ public class DataController {
     }
 
     public List<WaitingListEntry> getAllPosition(Worker worker) {
-        return backend.getWorkerPositions(worker);
+
+        return backend.getWorkerPositions(worker, currentCapacity);
+
     }
 
     /*entry/{workerId}
