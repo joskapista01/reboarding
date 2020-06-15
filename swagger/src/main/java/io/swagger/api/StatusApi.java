@@ -5,11 +5,14 @@
  */
 package io.swagger.api;
 
+import hu.vizespalack.WaitingListEntry;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-06-15T17:15:26.129Z")
 
@@ -24,6 +27,6 @@ public interface StatusApi {
     @RequestMapping(value = "/status/{workerId}",
         produces = {"application/json"},
         method = RequestMethod.GET)
-    ResponseEntity<Integer> returnStatus(@ApiParam(value = "ID of the user who the request came from", required = true) @PathVariable("workerId") String workerId);
+    ResponseEntity<List<WaitingListEntry>> returnStatus(@ApiParam(value = "ID of the user who the request came from", required = true) @PathVariable("workerId") String workerId);
 
 }

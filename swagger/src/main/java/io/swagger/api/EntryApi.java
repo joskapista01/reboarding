@@ -23,6 +23,6 @@ public interface EntryApi {
         @ApiResponse(code = 403, message = "Forbidden")})
     @RequestMapping(value = "/entry/{workerId}",
         method = RequestMethod.PUT)
-    ResponseEntity<Void> returnPermission(@ApiParam(value = "ID of the user who the request came from", required = true) @PathVariable("workerId") String workerId);
+    ResponseEntity<Boolean> returnPermission(@ApiParam(value = "ID of the user who the request came from", required = true) @PathVariable("workerId") String workerId);
 
 }

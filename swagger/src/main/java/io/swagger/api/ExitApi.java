@@ -23,6 +23,6 @@ public interface ExitApi {
         @ApiResponse(code = 405, message = "Method not allowed")})
     @RequestMapping(value = "/exit/{workerId}",
         method = RequestMethod.DELETE)
-    ResponseEntity<Void> exiting(@ApiParam(value = "ID of the user who the request came from", required = true) @PathVariable("workerId") String workerId);
+    ResponseEntity<Boolean> exiting(@ApiParam(value = "ID of the user who the request came from", required = true) @PathVariable("workerId") String workerId);
 
 }
