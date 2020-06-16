@@ -2,6 +2,7 @@ package hu.vizespalack.spring.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.vizespalack.api.H2Backend;
+import hu.vizespalack.spring.Swagger2SpringBoot;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +45,7 @@ public class EntryApiController implements EntryApi {
         Worker worker = new Worker(workerId);
         EntryDate entryDate = new EntryDate(LocalDate.now());
 
-        DataController controller = new DataController(new H2Backend(jdbc));
+        DataController controller = new DataController(Swagger2SpringBoot.getCapacity(), new H2Backend(jdbc));
 
         return ResponseEntity.ok(controller.isPermittedToEnter(worker));
     }

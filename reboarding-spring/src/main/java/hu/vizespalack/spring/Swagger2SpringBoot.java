@@ -13,8 +13,16 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 public class Swagger2SpringBoot implements CommandLineRunner {
 
+    private static Integer capacity;
+
+    public static Integer getCapacity(){
+        return capacity;
+    }
+
     public static void main(String[] args) throws Exception {
         new SpringApplication(Swagger2SpringBoot.class).run(args);
+
+        capacity = Integer.parseInt(args[0]);
     }
 
     @Override

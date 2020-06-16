@@ -5,6 +5,7 @@ import hu.vizespalack.api.DataController;
 import hu.vizespalack.api.EntryDate;
 import hu.vizespalack.api.H2Backend;
 import hu.vizespalack.api.Worker;
+import hu.vizespalack.spring.Swagger2SpringBoot;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +44,7 @@ public class ExitApiController implements ExitApi {
         Worker worker = new Worker(workerId);
         EntryDate entryDate = new EntryDate(LocalDate.now());
 
-        DataController controller = new DataController(new H2Backend(jdbc));
+        DataController controller = new DataController(Swagger2SpringBoot.getCapacity(), new H2Backend(jdbc));
 
         return ResponseEntity.ok(controller.exitWorkerFromOffice(worker));
     }

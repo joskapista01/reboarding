@@ -2,7 +2,9 @@ package hu.vizespalack.spring.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.vizespalack.api.*;
+import hu.vizespalack.spring.Swagger2SpringBoot;
 import io.swagger.annotations.ApiParam;
+import io.swagger.models.Swagger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +42,7 @@ public class StatusApiController implements StatusApi {
         Worker worker = new Worker(workerId);
         EntryDate entryDate = new EntryDate(LocalDate.now());
 
-        DataController controller = new DataController(new H2Backend(jdbc));
+        DataController controller = new DataController(Swagger2SpringBoot.getCapacity(), new H2Backend(jdbc));
 
         return ResponseEntity.ok(controller.getAllPosition(worker));
 
