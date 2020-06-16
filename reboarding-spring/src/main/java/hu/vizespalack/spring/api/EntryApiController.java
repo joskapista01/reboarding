@@ -1,18 +1,21 @@
-package io.swagger.api;
+package hu.vizespalack.spring.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hu.vizespalack.DataController;
-import hu.vizespalack.EntryDate;
-import hu.vizespalack.H2Backend;
-import hu.vizespalack.Worker;
+import hu.vizespalack.api.H2Backend;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.threeten.bp.LocalDate;
+import hu.vizespalack.api.Worker;
+import hu.vizespalack.api.EntryDate;
+import hu.vizespalack.api.DataController;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,6 +30,9 @@ public class EntryApiController implements EntryApi {
 
     private final HttpServletRequest request;
 
+    @Autowired
+    private JdbcTemplate jdbc;
+
     @org.springframework.beans.factory.annotation.Autowired
     public EntryApiController(ObjectMapper objectMapper, HttpServletRequest request) {
         this.objectMapper = objectMapper;
@@ -38,11 +44,9 @@ public class EntryApiController implements EntryApi {
         Worker worker = new Worker(workerId);
         EntryDate entryDate = new EntryDate(LocalDate.now());
 
-        DataController controller = new DataController(new H2Backend());
+        DataController controller = new DataController(new H2Backend(jdbc));
 
-        String accept = request.getHeader("Accept");
-
-        return new ResponseEntity<Boolean>(controller.isPermittedToEnter(worker), HttpStatus.ACCEPTED);
+        return ResponseEntity.ok(controller.isPermittedToEnter(worker));
     }
 
 }

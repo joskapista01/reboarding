@@ -1,12 +1,13 @@
-package io.swagger.api;
+package hu.vizespalack.spring.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hu.vizespalack.*;
+import hu.vizespalack.api.*;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.threeten.bp.LocalDate;
@@ -25,6 +26,9 @@ public class StatusApiController implements StatusApi {
 
     private final HttpServletRequest request;
 
+    @Autowired
+    private JdbcTemplate jdbc;
+
     @org.springframework.beans.factory.annotation.Autowired
     public StatusApiController(ObjectMapper objectMapper, HttpServletRequest request) {
         this.objectMapper = objectMapper;
@@ -36,17 +40,18 @@ public class StatusApiController implements StatusApi {
         Worker worker = new Worker(workerId);
         EntryDate entryDate = new EntryDate(LocalDate.now());
 
-        DataController controller = new DataController(new H2Backend());
+        DataController controller = new DataController(new H2Backend(jdbc));
 
-        String accept = request.getHeader("Accept");
+        return ResponseEntity.ok(controller.getAllPosition(worker));
+
+        /*String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
 
             List<WaitingListEntry> list = controller.getAllPosition(worker);
 
             return new ResponseEntity<List<WaitingListEntry>>(list, HttpStatus.ACCEPTED);
-        }
+        }*/
 
-        return null;
     }
 
 }

@@ -3,7 +3,7 @@
  * https://github.com/swagger-api/swagger-codegen
  * Do not edit the class manually.
  */
-package io.swagger.api;
+package hu.vizespalack.spring.api;
 
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +21,9 @@ public interface RegisterApi {
     @ApiResponses(value = {
         @ApiResponse(code = 201, message = "Created", response = Integer.class),
         @ApiResponse(code = 204, message = "No content")})
-    @RequestMapping(value = "/register/{workerId}/{date}",
+    @RequestMapping(value = "/register/{workerId}",
         produces = {"application/json"},
         method = RequestMethod.POST)
-    ResponseEntity<Integer> requestFreeTime(@ApiParam(value = "ID of the user who the request came from", required = true) @PathVariable("workerId") String workerId, @ApiParam(value = "the date to register worker to", required = true) @PathVariable("date") String date);
+    ResponseEntity<Integer> requestFreeTime(@ApiParam(value = "ID of the user who the request came from", required = true) @PathVariable("workerId") String workerId);
 
 }

@@ -1,8 +1,9 @@
-package hu.vizespalack;
+package hu.vizespalack.api;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+//backend interface
 public interface Backend {
 
     Integer getWorkerPosition(@NotNull Worker worker);

@@ -3,9 +3,9 @@
  * https://github.com/swagger-api/swagger-codegen
  * Do not edit the class manually.
  */
-package io.swagger.api;
+package hu.vizespalack.spring.api;
 
-import hu.vizespalack.WaitingListEntry;
+import hu.vizespalack.api.WaitingListEntry;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping(value = "/v2")
 public interface StatusApi {
 
-    @ApiOperation(value = "returns the status of your  actual request", nickname = "returnStatus", notes = "", response = Integer.class, tags = {"status",})
+    @ApiOperation(value = "returns the status of your  actual request", nickname = "returnStatus", notes = "", response = List.class, tags = {"status",})
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Succesful", response = Integer.class),
         @ApiResponse(code = 404, message = "Not found")})

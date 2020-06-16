@@ -1,4 +1,4 @@
-package io.swagger.configuration;
+package hu.vizespalack.spring.configuration;
 
 import com.fasterxml.jackson.datatype.threetenbp.ThreeTenModule;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -20,4 +20,5 @@ public class JacksonConfiguration {
         module.addDeserializer(ZonedDateTime.class, CustomInstantDeserializer.ZONED_DATE_TIME);
         return module;
     }
+
 }

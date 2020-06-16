@@ -1,4 +1,4 @@
-package io.swagger.api;
+package hu.vizespalack.spring.api;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;

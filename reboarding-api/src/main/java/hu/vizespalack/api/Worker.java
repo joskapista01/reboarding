@@ -1,4 +1,5 @@
-package hu.vizespalack;
+package hu.vizespalack.api;
+
 
 public class Worker {
 
@@ -8,6 +9,13 @@ public class Worker {
         this.Id = id;
     }
 
+    /**
+     *
+     * Returns the id of the worker.
+     *
+     * @return value of workerId
+     *
+     */
     public String getId() {
         return Id;
     }

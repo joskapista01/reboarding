@@ -3,7 +3,7 @@
  * https://github.com/swagger-api/swagger-codegen
  * Do not edit the class manually.
  */
-package io.swagger.api;
+package hu.vizespalack.spring.api;
 
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;

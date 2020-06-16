@@ -1,4 +1,4 @@
-package hu.vizespalack;
+package hu.vizespalack.api;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.threeten.bp.LocalDate;
@@ -6,7 +6,7 @@ import org.threeten.bp.LocalDate;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+//handles the rowmapping of a queried WaitingListEntry
 public class WaitingListEntryRowMapper implements RowMapper<WaitingListEntry> {
     @Override
     public WaitingListEntry mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -16,8 +16,7 @@ public class WaitingListEntryRowMapper implements RowMapper<WaitingListEntry> {
 
         Integer listPosition = rs.getInt("listPosition");
 
-        WaitingListEntry wle = new WaitingListEntry(workerId, entryDate, listPosition);
-        return wle;
+        return new WaitingListEntry(new Worker(workerId), new EntryDate(entryDate), listPosition);
     }
 
 }

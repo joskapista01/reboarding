@@ -1,4 +1,4 @@
-package io.swagger;
+package hu.vizespalack.spring;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.ExitCodeGenerator;
@@ -9,7 +9,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-@ComponentScan(basePackages = {"io.swagger", "io.swagger.api", "io.swagger.configuration"})
+@ComponentScan(basePackages = {"hu.vizespalack.spring", "hu.vizespalack.spring.api", "hu.vizespalack.spring.configuration"})
+
 public class Swagger2SpringBoot implements CommandLineRunner {
 
     public static void main(String[] args) throws Exception {
